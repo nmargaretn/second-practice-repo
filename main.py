@@ -100,5 +100,8 @@ if output:
     print(f"Gold:{c_gold}, Silver:{c_silver}, Bronze:{c_bronze}", file=output_file)
     output_file.close()
 
+if argument == "-total":
+    for country in dictionary:
+        print(f"{country}\t\t Gold:{dictionary[country][0]}, Silver:{dictionary[country][1]}, Bronze:{dictionary[country][2]}")
 
 
