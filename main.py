@@ -96,5 +96,9 @@ if argument == "-medals":
     print(f"Gold:{c_gold}, Silver:{c_silver}, Bronze:{c_bronze}")
 
 
+if output:
+    print(f"Gold:{c_gold}, Silver:{c_silver}, Bronze:{c_bronze}", file=output_file)
+    output_file.close()
+
 
 
