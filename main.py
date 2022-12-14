@@ -24,7 +24,7 @@ dictionary = {}
 years_dictionary = {}
 while line:
     line = line[:-1]
-    word = line.split(';')
+    word = line.split('\t')
     country = word[6]
     country_code = word[7]
     year = word[9]
