@@ -1,7 +1,6 @@
 import sys
 
-#-overall
-print(sys.argv)
+
 file_name = sys.argv[1]
 if sys.argv[2] == "-overall":
 
@@ -15,7 +14,6 @@ if sys.argv[2] == "-overall":
     lines = lines[1:]
 
     for country in countries:
-
         country_history = {}
 
         for line in lines:
@@ -23,7 +21,22 @@ if sys.argv[2] == "-overall":
             line = line.split("\t")
             if line[14] != "NA\n" and line[14] != "NA":
                 if line[6] == country:
-                    print(line[6], line[9], line[14])
+                    years = country_history.keys()
+                    if line[9] not in years:
+                        country_history[line[9]] = 1
+                    else:
+                        country_history[line[9]] += 1
+
+        current_year = list(country_history.keys())[0]
+        medals = list(country_history.values())[0]
+
+        for year in country_history:
+            if country_history[year] > medals:
+                medals = country_history[year]
+                current_year = year
+
+        print(country, current_year, medals)
+
 
 
 file = open(file_name, 'r')
