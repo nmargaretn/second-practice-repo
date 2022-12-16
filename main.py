@@ -9,8 +9,6 @@ if sys.argv[2] == "-overall":
     with open(file_name, 'r') as file:
         lines = file.readlines()
 
-
-
     lines = lines[1:]
 
     for country in countries:
@@ -104,30 +102,6 @@ while line:
                     dictionary[country] = 1
 
     curent_year = word[9]
-    if argument == "-overall" and word[14] != "NA" and curent_year != "Year":
-        keys = country
-        values = ["Gold", "Silver", "Bronze"]
-
-        if curent_year not in years_dictionary:
-            years_dictionary[curent_year] = {}
-        dictionary = years_dictionary[curent_year]
-        if country not in dictionary:
-            dictionary[country] = [0, 0, 0]
-            if values[0] == word[14]:
-                dictionary[country][0] = 1
-            elif values[1] == word[14]:
-                dictionary[country][1] = 1
-            elif values[2] == word[14]:
-                dictionary[country][2] = 1
-        else:
-            if country in dictionary:
-                if values[0] == word[14]:
-                    dictionary[country][0] += 1
-                elif values[1] == word[14]:
-                    dictionary[country][1] += 1
-                elif values[2] == word[14]:
-                    dictionary[country][2] += 1
-
     line = file.readline()
 
 if argument == "-medals":
