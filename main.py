@@ -1,6 +1,31 @@
 import sys
 
+
+print(sys.argv)
 file_name = sys.argv[1]
+if sys.argv[2] == "-overall":
+
+    countries = sys.argv[3:]
+
+    with open(file_name, 'r') as file:
+        lines = file.readlines()
+
+
+
+    lines = lines[1:]
+
+    for country in countries:
+
+        country_history = {}
+
+        for line in lines:
+
+            line = line.split("\t")
+            if line[14] != "NA\n" and line[14] != "NA":
+                if line[6] == country:
+                    print(line[6], line[9], line[14])
+
+
 file = open(file_name, 'r')
 argument = sys.argv[2]
 countries = sys.argv[3]
@@ -96,12 +121,10 @@ if argument == "-medals":
     print(f"Gold:{c_gold}, Silver:{c_silver}, Bronze:{c_bronze}")
 
 
-if output:
-    print(f"Gold:{c_gold}, Silver:{c_silver}, Bronze:{c_bronze}", file=output_file)
-    output_file.close()
-
 if argument == "-total":
     for country in dictionary:
         print(f"{country}\t\t Gold:{dictionary[country][0]}, Silver:{dictionary[country][1]}, Bronze:{dictionary[country][2]}")
 
-
+if output:
+    print(f"Gold:{c_gold}, Silver:{c_silver}, Bronze:{c_bronze}", file=output_file)
+    output_file.close()
