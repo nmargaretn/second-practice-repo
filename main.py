@@ -55,9 +55,25 @@ if sys.argv[2] == "-interactive":
             the_best_olympic = olymp
 
 
-    print("The worst olympic:", the_worst_olympic, "->",the_worst_olympic_medals, "medals count")
-    print("The best olympic:", the_best_olympic, "->",the_best_olympic_medals, "medals count")
+    print("The worst olympic:", the_worst_olympic, "->", the_worst_olympic_medals, "medals count")
+    print("The best olympic:", the_best_olympic, "->", the_best_olympic_medals, "medals count")
 
+
+    olympics = {}
+
+    for line in lines:
+        line = line.split('\t')
+
+        if line[6] == country or line[7] == country:
+            if line[14] != "NA\n" and line[14] != "NA":
+                season = line[9] + " " + line[10]
+                if season not in olympics:
+                    olympics[season] = {"Gold": 0, "Silver": 0, "Bronze": 0}
+                    olympics[season][line[14][:-1]] += 1
+                else:
+                    olympics[season][line[14][:-1]] += 1
+
+    print(olympics)
 
 
 
