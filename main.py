@@ -5,6 +5,29 @@ file_name = sys.argv[1]
 
 if sys.argv[2] == "-interactive":
     user_command = input(">> ")
+    user_command = user_command.split()
+
+    with open(file_name, 'r') as file:
+        lines = file.readlines()
+
+    lines = lines[1:]
+
+    country = user_command[0]#take country
+
+    year_city = {}
+    for line in lines:
+        line = line.split('\t')
+        if line[6] == country:
+            year_city[int(line[9])] = line[11]
+
+
+    min_year = min(year_city.keys())
+    event_city = year_city[min_year]
+
+    print(f"Перша участь -> {min_year}: {event_city}")
+
+
+
 
 
 if sys.argv[2] == "-overall":
