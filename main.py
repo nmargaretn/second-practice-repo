@@ -27,6 +27,40 @@ if sys.argv[2] == "-interactive":
     print(f"Перша участь -> {min_year}: {event_city}")
 
 
+    olympics_medals = {}
+
+    for line in lines:
+        line = line.split('\t')
+        if line[6] == country:
+            if line[14] != "NA\n" and line[14] != "NA":
+                if line[9] + " " + line[10] not in olympics_medals:
+                    olympics_medals[line[9] + " " + line[10]] = 1
+                else:
+                    olympics_medals[line[9] + " " + line[10]] += 1
+
+
+    the_worst_olympic_medals = min(olympics_medals.values())#worst medals count #1
+    the_best_olympic_medals = max(olympics_medals.values())#best medals count
+
+    the_worst_olympic = ""#worst olympic name
+    the_best_olympic = ""
+
+    #run for dict
+    for olymp in olympics_medals: #кожен ключ в olymp
+        #olymp
+            #olympics_medals[ '1998 Winter'] -> 1 == 1
+        if olympics_medals[olymp] == the_worst_olympic_medals:# if
+            the_worst_olympic = olymp
+        if olympics_medals[olymp] == the_best_olympic_medals:
+            the_best_olympic = olymp
+
+
+    print("The worst olympic:", the_worst_olympic, "->",the_worst_olympic_medals, "medals count")
+    print("The best olympic:", the_best_olympic, "->",the_best_olympic_medals, "medals count")
+
+
+
+
 
 
 
