@@ -4,78 +4,83 @@ import sys
 file_name = sys.argv[1]
 
 if sys.argv[2] == "-interactive":
-    user_command = input(">> ")
-    user_command = user_command.split()
+    while True:
+        print("-e, --exit")
+        user_command = input(">> ")
+        if user_command == "-e" or user_command == "--exit":
+            exit()
 
-    with open(file_name, 'r') as file:
-        lines = file.readlines()
+        user_command = user_command.split()
 
-    lines = lines[1:]
+        with open(file_name, 'r') as file:
+            lines = file.readlines()
 
-    country = user_command[0]#take country
+        lines = lines[1:]
 
-    year_city = {}
-    for line in lines:
-        line = line.split('\t')
-        if line[6] == country:
-            year_city[int(line[9])] = line[11]
+        country = user_command[0]#take country
 
-
-    min_year = min(year_city.keys())
-    event_city = year_city[min_year]
-
-    print(f"Перша участь -> {min_year}: {event_city}")
-
-
-    olympics_medals = {}
-
-    for line in lines:
-        line = line.split('\t')
-        if line[6] == country:
-            if line[14] != "NA\n" and line[14] != "NA":
-                if line[9] + " " + line[10] not in olympics_medals:
-                    olympics_medals[line[9] + " " + line[10]] = 1
-                else:
-                    olympics_medals[line[9] + " " + line[10]] += 1
+        year_city = {}
+        for line in lines:
+            line = line.split('\t')
+            if line[6] == country or line[7]:
+                year_city[int(line[9])] = line[11]
 
 
-    the_worst_olympic_medals = min(olympics_medals.values())#worst medals count #1
-    the_best_olympic_medals = max(olympics_medals.values())#best medals count
+        min_year = min(year_city.keys())
+        event_city = year_city[min_year]
 
-    the_worst_olympic = ""#worst olympic name
-    the_best_olympic = ""
-
-    #run for dict
-    for olymp in olympics_medals: #кожен ключ в olymp
-        #olymp
-            #olympics_medals[ '1998 Winter'] -> 1 == 1
-        if olympics_medals[olymp] == the_worst_olympic_medals:# if
-            the_worst_olympic = olymp
-        if olympics_medals[olymp] == the_best_olympic_medals:
-            the_best_olympic = olymp
+        print(f"Перша участь -> {min_year}: {event_city}")
 
 
-    print("The worst olympic:", the_worst_olympic, "->", the_worst_olympic_medals, "medals count")
-    print("The best olympic:", the_best_olympic, "->", the_best_olympic_medals, "medals count")
+        olympics_medals = {}
+
+        for line in lines:
+            line = line.split('\t')
+            if line[6] == country or line[7] == country:
+                if line[14] != "NA\n" and line[14] != "NA":
+                    if line[9] + " " + line[10] not in olympics_medals:
+                        olympics_medals[line[9] + " " + line[10]] = 1
+                    else:
+                        olympics_medals[line[9] + " " + line[10]] += 1
 
 
-    olympics = {}
+        the_worst_olympic_medals = min(olympics_medals.values())#worst medals count #1
+        the_best_olympic_medals = max(olympics_medals.values())#best medals count
 
-    for line in lines:
-        line = line.split('\t')
+        the_worst_olympic = ""#worst olympic name
+        the_best_olympic = ""
 
-        if line[6] == country or line[7] == country:
-            if line[14] != "NA\n" and line[14] != "NA":
-                season = line[9] + " " + line[10]
-                if season not in olympics:
-                    olympics[season] = {"Gold": 0, "Silver": 0, "Bronze": 0}
-                    olympics[season][line[14][:-1]] += 1
-                else:
-                    olympics[season][line[14][:-1]] += 1
-
-    print(olympics)
+        #run for dict
+        for olymp in olympics_medals: #кожен ключ в olymp
+            #olymp
+                #olympics_medals[ '1998 Winter'] -> 1 == 1
+            if olympics_medals[olymp] == the_worst_olympic_medals:# if
+                the_worst_olympic = olymp
+            if olympics_medals[olymp] == the_best_olympic_medals:
+                the_best_olympic = olymp
 
 
+        print("The worst olympic:", the_worst_olympic, "->", the_worst_olympic_medals, "medals count")
+        print("The best olympic:", the_best_olympic, "->", the_best_olympic_medals, "medals count")
+
+
+        olympics = {}
+
+        for line in lines:
+            line = line.split('\t')
+
+            if line[6] == country or line[7] == country:
+                if line[14] != "NA\n" and line[14] != "NA":
+                    season = line[9] + " " + line[10]
+                    if season not in olympics:
+                        olympics[season] = {"Gold": 0, "Silver": 0, "Bronze": 0}
+                        olympics[season][line[14][:-1]] += 1
+                    else:
+                        olympics[season][line[14][:-1]] += 1
+        print()
+
+        for olymp in olympics:
+            print(f"{olymp}| Gold: {olympics[olymp]['Gold']}, Silver: {olympics[olymp]['Silver']}, Bronze: {olympics[olymp]['Bronze']}")
 
 
 
