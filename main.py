@@ -2,6 +2,11 @@ import sys
 
 
 file_name = sys.argv[1]
+
+if sys.argv[2] == "-interactive":
+    user_command = input(">> ")
+
+
 if sys.argv[2] == "-overall":
 
     countries = sys.argv[3:]
@@ -18,7 +23,7 @@ if sys.argv[2] == "-overall":
 
             line = line.split("\t")
             if line[14] != "NA\n" and line[14] != "NA":
-                if line[6] == country:
+                if line[6] == country or line[7] == country:
                     years = country_history.keys()
                     if line[9] not in years:
                         country_history[line[9]] = 1
