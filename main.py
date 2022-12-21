@@ -87,14 +87,21 @@ if sys.argv[2] == "-interactive":
 
 if sys.argv[2] == "-overall":
 
-    countries = sys.argv[3:]
 
     with open(file_name, 'r') as file:
         lines = file.readlines()
 
     lines = lines[1:]
 
+    if "-output" in sys.argv:
+        output_file = open(sys.argv[sys.argv.index("-output") + 1], 'w')
+        countries = sys.argv[3:sys.argv.index("-output")]
+    else:
+        countries = sys.argv[3:]
+
     for country in countries:
+
+
         country_history = {}
 
         for line in lines:
@@ -116,7 +123,13 @@ if sys.argv[2] == "-overall":
                 medals = country_history[year]
                 current_year = year
 
-        print(country, current_year, medals)
+        if "-output" in sys.argv:
+            print(country, current_year, medals)
+            print(country, current_year, medals, file=output_file)
+        else:
+            print(country, current_year, medals)
+
+
 
 
 
